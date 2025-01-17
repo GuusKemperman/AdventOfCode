@@ -387,12 +387,23 @@ int main()
 #endif
 }
 
-// Moments that made things click:
-//   Input has 3-bit sections that shift with every iteration
-//     
+// Terribly difficult day.
+// I started with trying to bruteforce it. I translated
+// the program to C++ so itd be faster, and then used SIMD
+// to optimise it. I discovered that the number of letters
+// printed correlated to the size of the input, so I used
+// binary search to find the minimum and maximum value the
+// solution could be in. Bur even with all cores working away,
+// it was taking an eternity.
+
+// I started looking for a better solution:
+// 
+// The input has 3-bit sections that shift with every iteration.
 // Even better:
 // - Each cycle can be calculated independly
-// - We know that at the end of the program a = [0-7]
+// - We know that at the end of the program a = [0-7], since a / 8 = 0
 // - Multiply those by 8 (because the only time we modify a is by dividing by 8), and you get
 //   all the possible values a could be in the previous cycle
 // - For each possible value, check if the expected output is produced to prune the branch
+//
+// This new solution solved it in nanoseconds
