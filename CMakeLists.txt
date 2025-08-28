@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.30)
+project(AOC LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+add_compile_options(/W4 /WX)
+set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
+
+add_subdirectory(2023)
