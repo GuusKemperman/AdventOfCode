@@ -1,26 +1,21 @@
-#include <fstream>
-#include <sstream>
+#include <ranges>
 #include <print>
+
+#include "input.h"
 
 int main()
 {
-	std::ifstream file{ "input.txt" };
-
-	if (!file.is_open())
-	{
-		throw std::invalid_argument{ "missing input" };
-	}
-
+	std::string_view input = get_input();
 	int total{};
 
-	for (std::string line{}; std::getline(file, line);)
+	for (auto line : input | std::views::split('\n'))
 	{
 		static constexpr auto is_digit = [](char ch) { return std::isdigit(ch); };
+		
+		char first = *std::ranges::find_if(line, is_digit);
+		char second = *std::ranges::find_if(line | std::views::reverse, is_digit); 
 
-		char first = *std::find_if(line.begin(), line.end(), is_digit);
-		char second = *std::find_if(line.rbegin(), line.rend(), is_digit);
-
-		total += (first - '0') * 10 + (second - '0');;
+		total += (first - '0') * 10 + (second - '0');
 	}
 
 	std::print("Total: {}", total);
